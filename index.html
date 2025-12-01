@@ -1,258 +1,307 @@
+# index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Skyfall SMP — Official Website</title>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0b0d;
-      color: white;
-    }
-
-    /* Nav Bar */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-      background: #111;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid #222;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #4f7cff;
-    }
-
-    /* Header */
-    header {
-      text-align: center;
-      padding: 120px 20px;
-      background: url('https://i.imgur.com/bkV0P8F.jpeg') center/cover no-repeat;
-      border-bottom: 1px solid #222;
-    }
-
-    header h1 {
-      font-size: 60px;
-      text-shadow: 0px 0px 15px black;
-    }
-
-    header p {
-      font-size: 22px;
-      margin-top: 10px;
-      text-shadow: 0px 0px 10px black;
-    }
-
-    /* Sections */
-    .section {
-      padding: 60px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    h2 {
-      font-size: 36px;
-      border-left: 5px solid #4f7cff;
-      padding-left: 15px;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      background: #121212;
-      padding: 20px;
-      margin: 20px 0;
-      border-radius: 10px;
-      border: 1px solid #222;
-    }
-
-    .rank {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .rank button {
-      background: #4f59ff;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .rank button:hover {
-      background: #2632ff;
-    }
-
-    /* Staff Grid */
-    .staff-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 20px;
-      text-align: center;
-    }
-
-    .staff-card {
-      background: #111;
-      padding: 20px;
-      border-radius: 10px;
-      border: 1px solid #222;
-    }
-
-    .staff-card img {
-      width: 80px;
-      border-radius: 5px;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      background: #111;
-      margin-top: 60px;
-      border-top: 1px solid #222;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
 </head>
-
 <body>
-
-<!-- NAV BAR -->
-<nav>
-  <div class="logo"><b>Skyfall SMP</b></div>
-  <div>
-    <a href="#home">Home</a>
-    <a href="#store">Store</a>
-    <a href="#staff">Staff</a>
-    <a href="#rules">Rules</a>
-    <a href="#join">Join</a>
-  </div>
-</nav>
-
-<!-- HEADER -->
-<header id="home">
-  <h1>Skyfall SMP</h1>
-  <p>The Ultimate Community Minecraft Survival Experience</p>
-</header>
-
-<!-- ABOUT SECTION -->
-<div class="section" id="about">
-  <h2>About the Server</h2>
-  <p>
-    Skyfall SMP is a community-driven survival multiplayer server with custom
-    features, balanced gameplay, active staff, and weekly events. Whether you’re
-    a builder, raider, trader, or explorer — Skyfall has a place for you!
-  </p>
-</div>
-
-<!-- STORE -->
-<div class="section" id="store">
-  <h2>Ranks & Store</h2>
-
-  <div class="card rank">
-    <div>
-      <h3>⭐ VIP Rank</h3>
-      <p>$5.00 — Prefix, /kit vip, /hat & more</p>
-    </div>
-    <button>Buy</button>
-  </div>
-
-  <div class="card rank">
-    <div>
-      <h3>💎 Elite Rank</h3>
-      <p>$15.00 — VIP perks + /nick, backpack, effects</p>
-    </div>
-    <button>Buy</button>
-  </div>
-
-  <div class="card rank">
-    <div>
-      <h3>👑 Titan Rank</h3>
-      <p>$30.00 — All perks unlocked + exclusive cosmetics</p>
-    </div>
-    <button>Buy</button>
-  </div>
-
-  <div class="card rank">
-    <div>
-      <h3>🎁 Crate Keys</h3>
-      <p>Starting at $2.00 — Vote, Epic & Legendary keys</p>
-    </div>
-    <button>Buy</button>
-  </div>
-</div>
-
-<!-- STAFF -->
-<div class="section" id="staff">
-  <h2>Meet the Staff</h2>
-
-  <div class="staff-grid">
-    <div class="staff-card">
-      <img src="https://mc-heads.net/avatar/Notch" alt="Owner" />
-      <h3>Hunter</h3>
-      <p>Owner</p>
-    </div>
-
-    <div class="staff-card">
-      <img src="https://mc-heads.net/avatar/Jeb_" alt="Admin" />
-      <h3>Max</h3>
-      <p>Admin</p>
-    </div>
-
-    <div class="staff-card">
-      <img src="https://mc-heads.net/avatar/Dinnerbone" alt="Moderator" />
-      <h3>Ash</h3>
-      <p>Moderator</p>
-    </div>
-  </div>
-</div>
-
-<!-- RULES -->
-<div class="section" id="rules">
-  <h2>Server Rules</h2>
-
-  <div class="card">
-    <ul>
-      <li>No hacking, cheats, or exploits</li>
-      <li>Be respectful to all players</li>
-      <li>No griefing protected builds</li>
-      <li>No IRL trading</li>
-      <li>No spamming or advertising</li>
-      <li>Follow staff direction at all times</li>
+  <nav class="navbar">
+    <div class="logo">Skyfall SMP</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li><a href="staff.html">Staff</a></li>
+      <li><a href="rules.html">Rules</a></li>
+      <li><a href="join.html">Join</a></li>
     </ul>
-  </div>
-</div>
+  </nav>
 
-<!-- JOIN -->
-<div class="section" id="join">
-  <h2>How to Join</h2>
-  <div class="card">
-    <p><b>Java Edition IP:</b> play.skyfallsmp.net</p>
-    <p><b>Bedrock IP:</b> play.skyfallsmp.net</p>
-    <p><b>Port:</b> 19132</p>
-    <p>Join our Discord for updates, support, and giveaways!</p>
-  </div>
-</div>
+  <header class="hero">
+    <h1>Skyfall SMP</h1>
+    <p>The Next Level of Survival Multiplayer</p>
+    <button onclick="window.location.href='join.html'" class="hero-btn">Join Now</button>
+  </header>
 
-<!-- FOOTER -->
-<footer>
-  Skyfall SMP © 2025 • All Rights Reserved
-</footer>
+  <section class="section">
+    <h2>Welcome to Skyfall SMP</h2>
+    <p>
+      A custom survival world with quests, events, ranks, crates, and a strong community.
+      Build, explore, and rise to the top.
+    </p>
+  </section>
 
+  <footer>
+    Skyfall SMP © 2025 — All Rights Reserved
+  </footer>
 </body>
 </html>
+
+
+# store.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Store — Skyfall SMP</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Skyfall SMP</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a class="active" href="store.html">Store</a></li>
+      <li><a href="staff.html">Staff</a></li>
+      <li><a href="rules.html">Rules</a></li>
+      <li><a href="join.html">Join</a></li>
+    </ul>
+  </nav>
+
+  <section class="section">
+    <h2>Store</h2>
+
+    <div class="card">
+      <h3>⭐ VIP Rank</h3>
+      <p>$5 — Basic perks + kits</p>
+      <button>Buy</button>
+    </div>
+
+    <div class="card">
+      <h3>💎 Elite Rank</h3>
+      <p>$15 — Extra kits, nicknames, cosmetics</p>
+      <button>Buy</button>
+    </div>
+
+    <div class="card">
+      <h3>👑 Titan Rank</h3>
+      <p>$30 — All perks + exclusive abilities</p>
+      <button>Buy</button>
+    </div>
+
+    <div class="card">
+      <h3>🎁 Crate Keys</h3>
+      <p>From $2 — Vote, Epic, Legendary</p>
+      <button>Buy</button>
+    </div>
+  </section>
+</body>
+</html>
+
+
+# staff.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff — Skyfall SMP</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Skyfall SMP</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li><a class="active" href="staff.html">Staff</a></li>
+      <li><a href="rules.html">Rules</a></li>
+      <li><a href="join.html">Join</a></li>
+    </ul>
+  </nav>
+
+  <section class="section">
+    <h2>Staff Team</h2>
+
+    <div class="staff-grid">
+      <div class="staff-card">
+        <img src="https://mc-heads.net/avatar/Notch" />
+        <h3>Hunter</h3>
+        <p>Owner</p>
+      </div>
+
+      <div class="staff-card">
+        <img src="https://mc-heads.net/avatar/Jeb_" />
+        <h3>Blaze</h3>
+        <p>Admin</p>
+      </div>
+
+      <div class="staff-card">
+        <img src="https://mc-heads.net/avatar/Dinnerbone" />
+        <h3>Echo</h3>
+        <p>Moderator</p>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
+
+
+# rules.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rules — Skyfall SMP</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Skyfall SMP</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li><a href="staff.html">Staff</a></li>
+      <li><a class="active" href="rules.html">Rules</a></li>
+      <li><a href="join.html">Join</a></li>
+    </ul>
+  </nav>
+
+  <section class="section">
+    <h2>Rules</h2>
+    <div class="card">
+      <ul>
+        <li>No hacking or cheating</li>
+        <li>No griefing protected bases</li>
+        <li>No harassment or toxicity</li>
+        <li>No IRL trading</li>
+        <li>No spamming or advertising</li>
+        <li>Respect staff decisions</li>
+      </ul>
+    </div>
+  </section>
+</body>
+</html>
+
+
+# join.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join — Skyfall SMP</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Skyfall SMP</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li><a href="staff.html">Staff</a></li>
+      <li><a href="rules.html">Rules</a></li>
+      <li><a class="active" href="join.html">Join</a></li>
+    </ul>
+  </nav>
+
+  <section class="section">
+    <h2>How to Join</h2>
+    <div class="card">
+      <p><b>Java Edition IP:</b> mc.skyfallsmp.net</p>
+      <p><b>Bedrock Edition IP:</b> mc.skyfallsmp.net</p>
+      <p><b>Port:</b> 19132</p>
+      <p>Join our Discord for updates, support, and giveaways!</p>
+    </div>
+  </section>
+</body>
+</html>
+
+
+# styles.css
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b0d;
+  color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 30px;
+  background: #111;
+  position: sticky;
+  top: 0;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #5a7fff;
+}
+
+.hero {
+  text-align: center;
+  padding: 140px 20px;
+  background: url('https://i.imgur.com/bkV0P8F.jpeg') center/cover;
+}
+
+.hero-btn {
+  padding: 12px 25px;
+  background: #5a7fff;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.section {
+  max-width: 900px;
+  margin: auto;
+  padding: 60px 20px;
+}
+
+.card {
+  background: #111;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  border: 1px solid #222;
+}
+
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.staff-card {
+  background: #111;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid #222;
+}
+
+.staff-card img {
+  width: 80px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  background: #111;
+}
+
+
+# script.js
+// Placeholder for future features like server-status API
+console.log("Skyfall SMP site loaded");

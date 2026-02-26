@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senso Bypass Browser</title>
+    <title>Web Bypass Browser</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -63,6 +63,7 @@
             justify-content: center;
             text-align: center;
             color: #606770;
+            overflow-y: auto;
         }
         .iframe-container {
             width: 100%;
@@ -86,7 +87,7 @@
 <body>
 
     <header class="header">
-        <h1>🚀 Bypass Browser</h1>
+        <h1>🚀 Web Bypass Browser</h1>
         <form class="url-form" id="urlForm">
             <input 
                 type="url" 
@@ -102,7 +103,8 @@
 
     <main id="contentArea" class="content-area">
         <p>Enter a URL above to start browsing.</p>
-        <p>This tool uses a proxy to fetch website content, which may bypass extensions like Senso.</p>
+        <p>This tool uses a proxy to fetch website content, which can bypass extensions like Senso.</p>
+        <p><strong>Note:</strong> Works best for articles and simple sites. Logins and interactive apps will not work.</p>
     </main>
 
     <div id="iframeContainer" class="iframe-container">
@@ -118,7 +120,6 @@
             const proxyFrame = document.getElementById('proxyFrame');
 
             // Using Jina AI as a simple fetching proxy. It converts a URL to readable text.
-            // For more complex sites, you'd need a more advanced proxy that handles JS/CSS.
             const PROXY_PREFIX = "https://r.jina.ai/http://";
 
             urlForm.addEventListener('submit', function(event) {

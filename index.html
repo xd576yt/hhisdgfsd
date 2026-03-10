@@ -1,70 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>P2P Chat</title>
+<title>P2P Chat Room</title>
 
 <style>
 
 body{
-font-family:Arial;
-background:#1e1f22;
-color:white;
 margin:0;
-}
-
-#login{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-text-align:center;
-}
-
-#chat{
-display:none;
+font-family:Arial;
+background:#0f172a;
+color:white;
 height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+#app{
+width:420px;
+height:600px;
+background:#1e293b;
+border-radius:12px;
+display:flex;
 flex-direction:column;
+overflow:hidden;
+box-shadow:0 0 20px rgba(0,0,0,.5);
+}
+
+header{
+background:#020617;
+padding:12px;
+font-weight:bold;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+#status{
+font-size:12px;
+color:#94a3b8;
 }
 
 #messages{
 flex:1;
-overflow:auto;
-padding:10px;
+overflow-y:auto;
+padding:15px;
 }
 
 .message{
-background:#2b2d31;
-margin:5px 0;
-padding:8px;
-border-radius:6px;
+margin-bottom:10px;
+padding:10px;
+border-radius:8px;
+background:#334155;
+max-width:80%;
+}
+
+.me{
+background:#2563eb;
+margin-left:auto;
+}
+
+.name{
+font-size:11px;
+opacity:.7;
+margin-bottom:2px;
 }
 
 #inputArea{
 display:flex;
 padding:10px;
-background:#111;
+background:#020617;
 }
 
 #messageInput{
 flex:1;
 padding:10px;
 border:none;
-border-radius:5px;
+border-radius:6px;
+outline:none;
+background:#1e293b;
+color:white;
 }
 
 button{
-padding:10px;
-margin-left:5px;
-background:#5865f2;
+margin-left:8px;
+padding:10px 14px;
+background:#3b82f6;
 border:none;
 color:white;
-border-radius:5px;
+border-radius:6px;
+cursor:pointer;
 }
 
-#status{
-font-size:12px;
-color:#aaa;
-padding:5px;
+#login{
+position:absolute;
+background:#020617;
+padding:30px;
+border-radius:10px;
+text-align:center;
+}
+
+#login input{
+padding:10px;
+border:none;
+border-radius:6px;
+margin-top:10px;
 }
 
 </style>
@@ -76,108 +116,139 @@ padding:5px;
 <body>
 
 <div id="login">
-
-<h2>Enter Name</h2>
-
-<input id="nameInput">
-
+<h2>Join Chat</h2>
+<input id="nameInput" placeholder="Your name">
+<br><br>
 <button onclick="login()">Join</button>
-
 </div>
 
-<div id="chat">
+<div id="app" style="display:none">
 
-<div id="status">Offline</div>
+<header>
+<span>🌎 P2P Chat</span>
+<span id="status">Connecting...</span>
+</header>
 
 <div id="messages"></div>
 
 <div id="inputArea">
-
 <input id="messageInput" placeholder="Type message...">
-
 <button onclick="sendMessage()">Send</button>
-
 </div>
 
 </div>
 
 <script>
 
-let username = localStorage.getItem("chatName");
-let peer;
-let connections=[];
+let username
+let peer
+let connections=[]
+const ROOM="global-chat-room"
 
-if(username){
-startChat();
+if(localStorage.getItem("chatName")){
+username=localStorage.getItem("chatName")
+start()
 }
 
 function login(){
 
-username=document.getElementById("nameInput").value;
+username=document.getElementById("nameInput").value
+if(!username)return
 
-if(!username)return;
-
-localStorage.setItem("chatName",username);
-
-startChat();
+localStorage.setItem("chatName",username)
+start()
 
 }
 
-function startChat(){
+function start(){
 
-document.getElementById("login").style.display="none";
-document.getElementById("chat").style.display="flex";
+document.getElementById("login").style.display="none"
+document.getElementById("app").style.display="flex"
 
-peer=new Peer("global-chat-room");
+peer=new Peer()
+
+peer.on("open",id=>{
+
+document.getElementById("status").innerText="Online"
+
+if(id!==ROOM){
+
+let conn=peer.connect(ROOM)
+
+conn.on("open",()=>{
+
+connections.push(conn)
+
+conn.on("data",receive)
+
+})
+
+}
+
+})
 
 peer.on("connection",conn=>{
 
-connections.push(conn);
+connections.push(conn)
 
-conn.on("data",receiveMessage);
+conn.on("data",data=>{
 
-});
+receive(data)
 
-document.getElementById("status").innerText="Online";
+connections.forEach(c=>{
+if(c!==conn)c.send(data)
+})
+
+})
+
+})
 
 }
 
-function receiveMessage(data){
+function receive(data){
 
-addMessage(data.name+": "+data.text);
+addMessage(data.name,data.text,false)
 
 }
 
 function sendMessage(){
 
-let input=document.getElementById("messageInput");
+let input=document.getElementById("messageInput")
 
-if(!input.value)return;
+if(!input.value)return
 
 let msg={
 name:username,
 text:input.value
-};
+}
 
-connections.forEach(c=>c.send(msg));
+connections.forEach(c=>c.send(msg))
 
-addMessage("You: "+input.value);
+addMessage(username,input.value,true)
 
-input.value="";
+input.value=""
 
 }
 
-function addMessage(text){
+function addMessage(name,text,isMe){
 
-let div=document.createElement("div");
+let div=document.createElement("div")
 
-div.className="message";
+div.className="message"
 
-div.innerText=text;
+if(isMe)div.classList.add("me")
 
-document.getElementById("messages").appendChild(div);
+div.innerHTML=`<div class="name">${name}</div>${text}`
+
+document.getElementById("messages").appendChild(div)
+
+document.getElementById("messages").scrollTop=999999
 
 }
+
+document.getElementById("messageInput").addEventListener("keydown",e=>{
+if(e.key==="Enter")sendMessage()
+})
 
 </script>
 

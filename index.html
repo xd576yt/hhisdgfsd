@@ -1,157 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Bypass Browser</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f2f5;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-        .header {
-            background-color: #ffffff;
-            padding: 15px 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 1.5em;
-            color: #1c1e21;
-        }
-        .url-form {
-            display: flex;
-            gap: 10px;
-            width: 100%;
-            max-width: 800px;
-        }
-        .url-input {
-            flex-grow: 1;
-            padding: 10px 15px;
-            font-size: 16px;
-            border: 1px solid #dddfe2;
-            border-radius: 6px;
-        }
-        .browse-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .browse-button:hover {
-            background-color: #0056b3;
-        }
-        .content-area {
-            flex-grow: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #606770;
-            overflow-y: auto;
-        }
-        .iframe-container {
-            width: 100%;
-            height: 100%;
-            border: 1px solid #dddfe2;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: white;
-            display: none; /* Hidden by default */
-        }
-        .iframe-container.active {
-            display: block; /* Shown when content is loaded */
-        }
-        .proxy-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
+<title>P2P Chat</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#1e1f22;
+color:white;
+margin:0;
+}
+
+#login{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+}
+
+#chat{
+display:none;
+height:100vh;
+flex-direction:column;
+}
+
+#messages{
+flex:1;
+overflow:auto;
+padding:10px;
+}
+
+.message{
+background:#2b2d31;
+margin:5px 0;
+padding:8px;
+border-radius:6px;
+}
+
+#inputArea{
+display:flex;
+padding:10px;
+background:#111;
+}
+
+#messageInput{
+flex:1;
+padding:10px;
+border:none;
+border-radius:5px;
+}
+
+button{
+padding:10px;
+margin-left:5px;
+background:#5865f2;
+border:none;
+color:white;
+border-radius:5px;
+}
+
+#status{
+font-size:12px;
+color:#aaa;
+padding:5px;
+}
+
+</style>
+
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+
 </head>
+
 <body>
 
-    <header class="header">
-        <h1>🚀 Web Bypass Browser</h1>
-        <form class="url-form" id="urlForm">
-            <input 
-                type="url" 
-                id="urlInput" 
-                class="url-input" 
-                placeholder="Enter website URL to browse (e.g., https://example.com)" 
-                required
-                autocomplete="off"
-            >
-            <button type="submit" class="browse-button">Browse</button>
-        </form>
-    </header>
+<div id="login">
 
-    <main id="contentArea" class="content-area">
-        <p>Enter a URL above to start browsing.</p>
-        <p>This tool uses a proxy to fetch website content, which can bypass extensions like Senso.</p>
-        <p><strong>Note:</strong> Works best for articles and simple sites. Logins and interactive apps will not work.</p>
-    </main>
+<h2>Enter Name</h2>
 
-    <div id="iframeContainer" class="iframe-container">
-        <iframe id="proxyFrame" class="proxy-iframe" title="Proxied Content"></iframe>
-    </div>
+<input id="nameInput">
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlForm = document.getElementById('urlForm');
-            const urlInput = document.getElementById('urlInput');
-            const contentArea = document.getElementById('contentArea');
-            const iframeContainer = document.getElementById('iframeContainer');
-            const proxyFrame = document.getElementById('proxyFrame');
+<button onclick="login()">Join</button>
 
-            // Using Jina AI as a simple fetching proxy. It converts a URL to readable text.
-            const PROXY_PREFIX = "https://r.jina.ai/http://";
+</div>
 
-            urlForm.addEventListener('submit', function(event) {
-                event.preventDefault(); // Stop form from reloading the page
-                
-                let targetUrl = urlInput.value.trim();
+<div id="chat">
 
-                // Basic URL validation
-                if (!targetUrl) {
-                    alert('Please enter a URL.');
-                    return;
-                }
-                
-                // Ensure the URL has a protocol
-                if (!/^https?:\/\//i.test(targetUrl)) {
-                    targetUrl = 'https://' + targetUrl;
-                }
+<div id="status">Offline</div>
 
-                // Construct the proxied URL
-                const proxiedUrl = PROXY_PREFIX + targetUrl;
-                
-                console.log('Fetching via proxy:', proxiedUrl);
+<div id="messages"></div>
 
-                // Hide the welcome message and show the iframe container
-                contentArea.style.display = 'none';
-                iframeContainer.classList.add('active');
+<div id="inputArea">
 
-                // Set the iframe's source to the proxied URL
-                proxyFrame.src = proxiedUrl;
-            });
-        });
-    </script>
+<input id="messageInput" placeholder="Type message...">
+
+<button onclick="sendMessage()">Send</button>
+
+</div>
+
+</div>
+
+<script>
+
+let username = localStorage.getItem("chatName");
+let peer;
+let connections=[];
+
+if(username){
+startChat();
+}
+
+function login(){
+
+username=document.getElementById("nameInput").value;
+
+if(!username)return;
+
+localStorage.setItem("chatName",username);
+
+startChat();
+
+}
+
+function startChat(){
+
+document.getElementById("login").style.display="none";
+document.getElementById("chat").style.display="flex";
+
+peer=new Peer("global-chat-room");
+
+peer.on("connection",conn=>{
+
+connections.push(conn);
+
+conn.on("data",receiveMessage);
+
+});
+
+document.getElementById("status").innerText="Online";
+
+}
+
+function receiveMessage(data){
+
+addMessage(data.name+": "+data.text);
+
+}
+
+function sendMessage(){
+
+let input=document.getElementById("messageInput");
+
+if(!input.value)return;
+
+let msg={
+name:username,
+text:input.value
+};
+
+connections.forEach(c=>c.send(msg));
+
+addMessage("You: "+input.value);
+
+input.value="";
+
+}
+
+function addMessage(text){
+
+let div=document.createElement("div");
+
+div.className="message";
+
+div.innerText=text;
+
+document.getElementById("messages").appendChild(div);
+
+}
+
+</script>
 
 </body>
 </html>
